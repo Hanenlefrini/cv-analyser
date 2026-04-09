@@ -1,0 +1,71 @@
+TypeScript Configuration:
+- Use TypeScript strict mode everywhere
+- NEVER use `any` or `unknown` types
+- All functions must have explicit return types
+- All API responses must be typed
+- Use proper type inference where appropriate but prefer explicit types for public APIs
+
+Code Style:
+- NO inline styles anywhere in the frontend
+- NO comments in code
+- Use Tailwind CSS classes exclusively for styling
+- Use shadcn/ui components for UI elements
+- Divide components logically into separate files
+- Use "use client" directive ONLY when absolutely required (e.g., hooks, event handlers, browser APIs)
+
+Architecture:
+- Follow clean architecture principles
+- Modular code organization
+- Separation of concerns
+- Use Zustand for state management in frontend
+- Use React Hook Form with Zod for form validation
+- Environment variables for all secrets and configuration
+
+Backend:
+- NestJS with proper module structure
+- Prisma for database access
+- Zod for validation
+- Type-safe API responses
+- Proper error handling
+
+Frontend:
+- Next.js App Router
+- Server components by default
+- Client components only when necessary
+- Type-safe API calls
+- Proper error boundaries
+
+Validation:
+- Use Zod for all validation schemas
+- Validate both frontend and backend inputs
+- Type-safe validation results
+
+Database:
+- Use Prisma for all database operations
+- Type-safe queries
+- Proper migrations
+
+AI Integration:
+- Mastra AI for structured LLM workflows
+- Deterministic JSON-only output
+- No markdown or explanations in AI responses
+- Structured output schemas
+
+File Uploads:
+- Use Multer for file uploads
+- Support PDF, DOCX, and image formats
+- OCR integration for scanned documents
+- Proper error handling for file processing
+
+State Management:
+- Zustand for global state
+- localStorage for persistence
+- Type-safe store actions and state
+
+
+
+
+
+
+
+
