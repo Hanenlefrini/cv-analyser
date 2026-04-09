@@ -1,0 +1,45 @@
+{
+  "name": "cv-analyzer-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "pnpm": {
+    "overrides": {
+      "lodash": "4.17.23",
+      "cloudinary": ">=2.7.0",
+      "glob": ">=10.5.0",
+      "next": ">=15.5.10",
+      "minimatch": ">=9.0.7",
+      "multer": ">=2.1.1",
+      "jsondiffpatch": ">=0.7.2",
+      "nanoid": ">=3.3.8",
+      "ajv": ">=8.18.0",
+      "file-type": ">=21.3.1",
+      "tmp": ">=0.2.4",
+      "ai": ">=5.0.52",
+      "webpack": ">=5.104.1"
+    }
+  },
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run start:dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
+
+
+
+
+
+
+
+

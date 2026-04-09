@@ -1,0 +1,105 @@
+---
+- name: Setup CV Analyzer VM with Git & Docker
+  hosts: cv_analyzer
+  become: true
+
+  tasks:
+    # ───────────────────────────────────────────────
+    # System updates
+    # ───────────────────────────────────────────────
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Upgrade all packages
+      apt:
+        upgrade: dist
+
+    # ───────────────────────────────────────────────
+    # Git installation
+    # ───────────────────────────────────────────────
+    - name: Install Git
+      apt:
+        name: git
+        state: present
+
+    - name: Verify Git installation
+      command: git --version
+      register: git_version
+      changed_when: false
+
+    - name: Print Git version
+      debug:
+        msg: "{{ git_version.stdout }}"
+
+    # ───────────────────────────────────────────────
+    # Docker prerequisites
+    # ───────────────────────────────────────────────
+    - name: Install Docker prerequisites
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+          - software-properties-common
+        state: present
+
+    # ───────────────────────────────────────────────
+    # Docker installation
+    # ───────────────────────────────────────────────
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        state: present
+
+    - name: Install Docker Engine
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: present
+        update_cache: yes
+
+    - name: Ensure Docker service is started and enabled
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add adminuser to docker group
+      user:
+        name: adminuser
+        groups: docker
+        append: yes
+
+    # ───────────────────────────────────────────────
+    # Verify installations
+    # ───────────────────────────────────────────────
+    - name: Verify Docker installation
+      command: docker --version
+      register: docker_version
+      changed_when: false
+
+    - name: Verify Docker Compose installation
+      command: docker compose version
+      register: docker_compose_version
+      changed_when: false
+
+    - name: Print Docker version
+      debug:
+        msg: "{{ docker_version.stdout }}"
+
+    - name: Print Docker Compose version
+      debug:
+        msg: "{{ docker_compose_version.stdout }}"
