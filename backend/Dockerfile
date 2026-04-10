@@ -10,7 +10,7 @@ ENV PNPM_FETCH_TIMEOUT=600000
 RUN npm install -g pnpm
 COPY package.json pnpm-lock.yaml ./
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store \
-    pnpm install --frozen-lockfile
+    pnpm install --no-frozen-lockfile
 
 FROM base AS builder
 WORKDIR /app
